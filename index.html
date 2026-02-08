@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>A Special Surprise Awaits😍</title>
     <style>
         :root {
@@ -11,13 +11,21 @@
             --bg-grad: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
         }
 
+        /* Prevent scrolling and handle mobile address bar issues */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100dvh; /* Dynamic height for mobile browsers */
             background: var(--bg-grad);
             text-align: center;
             overflow: hidden;
@@ -30,22 +38,24 @@
             user-select: none;
             z-index: 0;
             top: -100px;
+            pointer-events: none;
             animation: fallDown 4s linear forwards;
         }
 
         @keyframes fallDown {
             0% { transform: translateY(0) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0.8; }
+            100% { transform: translateY(115vh) rotate(360deg); opacity: 0.8; }
         }
 
+        /* Container scales based on screen size */
         .container {
-            padding: 30px;
+            padding: clamp(15px, 5vw, 30px);
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            max-width: 90vw; /* Responsive width */
-            width: fit-content;
+            width: 92%;
+            max-width: 450px;
             transition: all 0.5s ease;
             position: relative;
             z-index: 10;
@@ -56,11 +66,16 @@
 
         .hidden { display: none !important; }
 
-        .avatar-container { font-size: 60px; margin-bottom: 5px; }
+        .avatar-container { 
+            font-size: clamp(40px, 12vw, 60px); 
+            margin-bottom: 5px; 
+        }
 
         .section-img {
             width: 100%;
-            max-width: 250px;
+            height: auto;
+            max-height: 30vh; /* Prevents image from pushing buttons off screen */
+            object-fit: contain;
             border-radius: 15px;
             margin-bottom: 15px;
         }
@@ -70,47 +85,77 @@
             color: var(--secondary);
             margin-bottom: 15px;
             min-height: 24px;
+            font-size: clamp(0.85rem, 3vw, 1rem);
         }
 
-        h1 { color: var(--secondary); margin-bottom: 15px; font-size: 1.6rem; }
+        h1 { 
+            color: var(--secondary); 
+            margin-bottom: 15px; 
+            font-size: clamp(1.2rem, 6vw, 1.6rem); 
+        }
+        
+        p { 
+            font-size: clamp(0.9rem, 4vw, 1.1rem); 
+            line-height: 1.4; 
+            margin-top: 0;
+        }
 
-        /* Button Container: Using Flex to prevent intersection */
+        /* Horizontal layout for buttons */
         #options {
             display: flex;
-            flex-direction: row; /* Buttons side by side */
+            flex-direction: row;
             justify-content: center;
             align-items: center;
-            gap: 30px; /* Space between buttons */
+            gap: 20px;
             width: 100%;
-            padding: 20px;
+            padding: 10px;
         }
 
         .btn {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 15px 35px;
-            font-size: 1.1rem;
+            padding: 12px 25px;
+            font-size: 1rem;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             box-shadow: 0 4px 15px rgba(255, 75, 110, 0.3);
-            white-space: nowrap; /* Keep text on one line */
-            flex-shrink: 0; /* Prevents "Yes" from squishing "No" */
+            white-space: nowrap;
+            flex-shrink: 0; /* Ensures buttons don't crush each other */
         }
 
         #no-btn { 
             background-color: #adb5bd; 
-            transition: transform 0.4s ease, opacity 0.3s ease;
+            position: relative; 
+            z-index: 5;
         }
+        
+        #yes-btn { z-index: 100; }
 
         .couple-img {
             width: 100%;
-            max-width: 300px;
+            max-width: 250px;
             border-radius: 20px;
             margin-bottom: 20px;
             border: 5px solid #fff;
+        }
+
+        /* Final Stage Takeover */
+        .full-screen-state {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100dvh !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            z-index: 9999 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            font-size: clamp(3rem, 15vw, 7rem) !important;
         }
     </style>
 </head>
@@ -126,16 +171,16 @@
 
     <div id="page1" class="container hidden">
         <div class="avatar-container">👦🏻💐</div>
-        <img src="https://www.wishesmsg.com/wp-content/uploads/Welcome-Home-Message-for-Husband.jpg" alt="Love" class="section-img">
+        <img src="https://www.wishesmsg.com/wp-content/uploads/Welcome-Home-Message-for-Husband.jpg" alt="Welcome" class="section-img">
         <h1>Welcome, My Love! 💖</h1>
-        <p>Every moment with you is a gift. I wanted to create something special for you.</p>
+        <p>Every moment with you is a gift.</p>
         <button class="btn" onclick="showPage(2)">Next ➡️</button>
     </div>
 
     <div id="page2" class="container hidden">
         <div id="question-content">
             <div id="boy-avatar" class="avatar-container">👦🏻💐</div>
-            <img id="question-img" src="https://i.fbcd.co/products/resized/resized-750-500/will-you-be-my-valentine-svg-cut-file-1625831834007067300-61e6251a5319d34a935ee87d6105e96d80648509cafc953c9fe28ddbfb7f0898.jpg" alt="Will you?" class="section-img">
+            <img id="question-img" src="https://i.fbcd.co/products/resized/resized-750-500/will-you-be-my-valentine-svg-cut-file-1625831834007067300-61e6251a5319d34a935ee87d6105e96d80648509cafc953c9fe28ddbfb7f0898.jpg" alt="Proposal" class="section-img">
             <div id="boy-status" class="avatar-message">He's waiting for your answer...</div>
             <h1 id="question-text">Will you be my valentine? 🌹</h1>
             <div id="options">
@@ -148,7 +193,6 @@
             <div class="avatar-container">🎉🎈</div>
             <img src="https://i.pinimg.com/736x/18/99/5e/18995e81801092cd1636c6c18a430dd6.jpg" alt="Happy" class="section-img">
             <h2 style="color: #d63384;">Hooray! I knew it.</h2>
-            <p>We'll both make a beautiful world together.</p>
             <button class="btn" onclick="showPage(3)">Next ➡️</button>
         </div>
     </div>
@@ -156,7 +200,7 @@
     <div id="page3" class="container hidden">
         <img src="https://assets.thehansindia.com/h-upload/2025/02/14/1523893-valentine.webp" alt="Our Love" class="couple-img">
         <h2>You'll be my valentine till my last breath.</h2>
-        <p>Thank you for choosing me as your life partner.</p>
+        <p>Thank you for choosing me.</p>
         <p style="font-size: 2rem;">❤️ 💍 ✨</p>
     </div>
 
@@ -167,18 +211,17 @@
             const e = document.createElement('div');
             e.className = 'emoji-float';
             e.innerHTML = emoji;
-            e.style.left = Math.random() * 100 + 'vw';
-            const baseSize = isLarge ? 60 : 35;
-            e.style.fontSize = (Math.random() * 30 + baseSize) + 'px';
+            e.style.left = Math.random() * 95 + 'vw';
+            const baseSize = isLarge ? 50 : 30;
+            e.style.fontSize = (Math.random() * 25 + baseSize) + 'px';
             e.style.animationDuration = (Math.random() * 2 + 2) + 's';
             document.body.appendChild(e);
             setTimeout(() => e.remove(), 4000);
         }
 
-        // High quantity emoji rain
         setInterval(() => {
             spawnEmoji('😍');
-        }, 300);
+        }, 350);
 
         function showPage(pageNumber) {
             document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
@@ -193,58 +236,40 @@
             const status = document.getElementById('boy-status');
             const qImg = document.getElementById('question-img');
             
-            // Sad mode
             boy.innerHTML = "😢💔";
             status.innerHTML = "Please don't say no... 😭";
             qImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZkNXo4NXFmNXJ6Z3BqcXNia2Z3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/9Y5BbDSkSTiY8/giphy.gif";
             
-            // Drop lots of large sad emojis
             for(let i=0; i < 10; i++) spawnEmoji('😭', true);
 
-            // Equal 5-step growth logic using Padding/Font for physical displacement
+            // 5-Step Growth Logic
             if (clickCount === 1) {
-                yesBtn.style.padding = "30px 60px";
-                yesBtn.style.fontSize = "2rem";
+                yesBtn.style.padding = "20px 40px";
+                yesBtn.style.fontSize = "1.4rem";
             } else if (clickCount === 2) {
-                yesBtn.style.padding = "50px 100px";
-                yesBtn.style.fontSize = "3.5rem";
+                yesBtn.style.padding = "35px 60px";
+                yesBtn.style.fontSize = "2.2rem";
             } else if (clickCount === 3) {
-                yesBtn.style.padding = "70px 140px";
-                yesBtn.style.fontSize = "5rem";
+                yesBtn.style.padding = "50px 80px";
+                yesBtn.style.fontSize = "3rem";
             } else if (clickCount === 4) {
-                yesBtn.style.padding = "100px 200px";
-                yesBtn.style.fontSize = "6.5rem";
-                noBtn.style.opacity = "0.7";
+                yesBtn.style.padding = "65px 110px";
+                yesBtn.style.fontSize = "4.2rem";
+                noBtn.style.opacity = "0.6";
             } else if (clickCount >= 5) {
-                // Final Takeover
-                yesBtn.style.position = 'fixed';
-                yesBtn.style.top = '0';
-                yesBtn.style.left = '0';
-                yesBtn.style.width = '100vw';
-                yesBtn.style.height = '100vh';
-                yesBtn.style.margin = '0';
-                yesBtn.style.borderRadius = '0';
-                yesBtn.style.zIndex = '9999';
-                yesBtn.style.fontSize = '8rem';
-                yesBtn.style.display = 'flex';
-                yesBtn.style.justifyContent = 'center';
-                yesBtn.style.alignItems = 'center';
+                yesBtn.classList.add('full-screen-state');
                 yesBtn.innerHTML = "YES! 💖";
                 noBtn.style.display = 'none';
             }
         }
 
         function sayYes() {
-            // Happy celebration rain
-            setInterval(() => spawnEmoji('💖', true), 200);
+            setInterval(() => spawnEmoji('💖', true), 150);
             document.getElementById('question-content').classList.add('hidden');
             document.getElementById('yes-response').classList.remove('hidden');
-            
             const yesBtn = document.getElementById('yes-btn');
-            yesBtn.style.position = 'static';
-            yesBtn.style.width = 'auto';
-            yesBtn.style.height = 'auto';
-            yesBtn.style.transform = 'scale(1)';
+            yesBtn.classList.remove('full-screen-state');
+            yesBtn.style = ""; 
         }
     </script>
 </body>
