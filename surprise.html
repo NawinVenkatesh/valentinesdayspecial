@@ -5,62 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Special Surprise Awaits😍</title>
     <style>
+        /* Love & Valentine Theme Background */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #fff0f3;
+            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
             text-align: center;
             overflow: hidden;
+            color: #4a4a4a;
+        }
+
+        /* Floating Hearts Decoration */
+        .bg-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 20px;
+            user-select: none;
+            z-index: -1;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         .container {
-            padding: 20px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(255, 75, 110, 0.2);
-            max-width: 90%;
-            transition: all 0.3s ease;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 90%;
+            transition: all 0.4s ease;
+            position: relative;
         }
 
         .hidden { display: none; }
 
-        h1 { color: #ff4b6e; }
-        p { font-size: 1.2rem; color: #555; line-height: 1.6; }
+        h1 { color: #d63384; margin-bottom: 20px; }
+        p { font-size: 1.1rem; line-height: 1.6; }
 
         .btn {
             background-color: #ff4b6e;
             color: white;
             border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
+            padding: 15px 30px;
+            font-size: 1.1rem;
             border-radius: 50px;
             cursor: pointer;
             margin: 10px;
-            transition: transform 0.2s, font-size 0.2s;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 75, 110, 0.3);
         }
 
-        .btn:hover { background-color: #e6395b; }
+        .btn:hover { background-color: #e6395b; transform: scale(1.05); }
 
-        #no-btn { background-color: #888; }
+        #no-btn { background-color: #adb5bd; }
 
         .couple-img {
-            max-width: 300px;
-            border-radius: 15px;
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 5px solid #fff;
         }
     </style>
 </head>
 <body>
 
-    <div id="page1" class="container">
-        <h1>Hi, [Maaluttiii]! 💖</h1>
-        <p>I have a special message just for you, my love. <br> Are you ready to see it?</p>
-        <button class="btn" onclick="showPage(2)">Yes, take me there!</button>
+    <script>
+        for (let i = 0; i < 15; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'bg-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(heart);
+        }
+    </script>
+
+    <div id="page0" class="container">
+        <h1>A Special Surprise Awaits😍</h1>
+        <p>I have something very important to tell you...</p>
+        <button class="btn" onclick="showPage(1)">Click to reveal ❤️</button>
+    </div>
+
+    <div id="page1" class="container hidden">
+        <h1>Welcome, [Her Name]! 💖</h1>
+        <p>My dearest, every moment with you is a gift. I wanted to create something special to show you how much you mean to me.</p>
+        <button class="btn" onclick="showPage(2)">Next ➡️</button>
     </div>
 
     <div id="page2" class="container hidden">
@@ -70,22 +110,21 @@
             <button id="no-btn" class="btn" onclick="handleNo()">No</button>
         </div>
         <div id="yes-response" class="hidden">
-            <h2 style="color: #ff4b6e;">Hooray! I knew it.</h2>
+            <h2 style="color: #d63384;">Hooray! I knew it.</h2>
             <p>We'll both make a beautiful world together.</p>
             <button class="btn" onclick="showPage(3)">Next ➡️</button>
         </div>
     </div>
 
     <div id="page3" class="container hidden">
-        <img src="your-image-url.jpg" alt="Our Love" class="couple-img">
+        <img src="https://via.placeholder.com/300x300?text=Our+Photo" alt="Our Love" class="couple-img">
         <h2>You'll be my valentine till my last breath.</h2>
-        <p>Thank you for choosing me as your life partner. <br> You make every day brighter just by being in it.</p>
-        <p style="font-size: 0.9rem; color: #ff4b6e;">❤️ Forever Yours ❤️</p>
+        <p>Thank you for choosing me as your life partner. <br> I love you infinitely!</p>
+        <p style="font-size: 1.5rem;">👩‍❤️‍👨</p>
     </div>
 
     <script>
         let clickCount = 0;
-        let yesBtnSize = 1;
 
         function showPage(pageNumber) {
             document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
@@ -98,38 +137,37 @@
             const noBtn = document.getElementById('no-btn');
             
             if (clickCount === 1) {
-                yesBtnSize = 2;
+                yesBtn.style.transform = 'scale(2)';
             } else if (clickCount === 2) {
-                yesBtnSize = 4;
+                yesBtn.style.transform = 'scale(4)';
             } else if (clickCount === 3) {
-                yesBtnSize = 8;
+                yesBtn.style.transform = 'scale(8)';
             } else if (clickCount >= 4) {
-                // Fill the screen
+                // Fullscreen takeover
                 yesBtn.style.position = 'fixed';
                 yesBtn.style.top = '0';
                 yesBtn.style.left = '0';
                 yesBtn.style.width = '100vw';
                 yesBtn.style.height = '100vh';
-                yesBtn.style.zIndex = '999';
-                yesBtn.style.fontSize = '5rem';
+                yesBtn.style.zIndex = '9999';
+                yesBtn.style.fontSize = '4rem';
+                yesBtn.style.borderRadius = '0';
                 noBtn.style.display = 'none';
                 return;
             }
-
-            yesBtn.style.transform = `scale(${yesBtnSize})`;
         }
 
         function sayYes() {
-            document.getElementById('question-text').classList.add('hidden');
-            document.getElementById('options').classList.add('hidden');
-            document.getElementById('yes-response').classList.remove('hidden');
-            
-            // Reset yes button if it was fullscreen
+            // Revert fullscreen if needed
             const yesBtn = document.getElementById('yes-btn');
             yesBtn.style.position = 'static';
             yesBtn.style.width = 'auto';
             yesBtn.style.height = 'auto';
             yesBtn.style.transform = 'scale(1)';
+
+            document.getElementById('question-text').classList.add('hidden');
+            document.getElementById('options').classList.add('hidden');
+            document.getElementById('yes-response').classList.remove('hidden');
         }
     </script>
 </body>
