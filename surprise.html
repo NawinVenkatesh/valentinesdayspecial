@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff0f3;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 75, 110, 0.2);
+            max-width: 90%;
+            transition: all 0.3s ease;
+        }
+
+        .hidden { display: none; }
+
+        h1 { color: #ff4b6e; }
+        p { font-size: 1.2rem; color: #555; line-height: 1.6; }
+
+        .btn {
+            background-color: #ff4b6e;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s, font-size 0.2s;
+        }
+
+        .btn:hover { background-color: #e6395b; }
+
+        #no-btn { background-color: #888; }
+
+        .couple-img {
+            max-width: 300px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="page1" class="container">
+        <h1>Hi, [Maaluttiii]! 💖</h1>
+        <p>I have a special message just for you, my love. <br> Are you ready to see it?</p>
+        <button class="btn" onclick="showPage(2)">Yes, take me there!</button>
+    </div>
+
+    <div id="page2" class="container hidden">
+        <h1 id="question-text">Will you be my valentine? 🌹</h1>
+        <div id="options">
+            <button id="yes-btn" class="btn" onclick="sayYes()">Yes</button>
+            <button id="no-btn" class="btn" onclick="handleNo()">No</button>
+        </div>
+        <div id="yes-response" class="hidden">
+            <h2 style="color: #ff4b6e;">Hooray! I knew it.</h2>
+            <p>We'll both make a beautiful world together.</p>
+            <button class="btn" onclick="showPage(3)">Next ➡️</button>
+        </div>
+    </div>
+
+    <div id="page3" class="container hidden">
+        <img src="your-image-url.jpg" alt="Our Love" class="couple-img">
+        <h2>You'll be my valentine till my last breath.</h2>
+        <p>Thank you for choosing me as your life partner. <br> You make every day brighter just by being in it.</p>
+        <p style="font-size: 0.9rem; color: #ff4b6e;">❤️ Forever Yours ❤️</p>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let yesBtnSize = 1;
+
+        function showPage(pageNumber) {
+            document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
+            document.getElementById('page' + pageNumber).classList.remove('hidden');
+        }
+
+        function handleNo() {
+            clickCount++;
+            const yesBtn = document.getElementById('yes-btn');
+            const noBtn = document.getElementById('no-btn');
+            
+            if (clickCount === 1) {
+                yesBtnSize = 2;
+            } else if (clickCount === 2) {
+                yesBtnSize = 4;
+            } else if (clickCount === 3) {
+                yesBtnSize = 8;
+            } else if (clickCount >= 4) {
+                // Fill the screen
+                yesBtn.style.position = 'fixed';
+                yesBtn.style.top = '0';
+                yesBtn.style.left = '0';
+                yesBtn.style.width = '100vw';
+                yesBtn.style.height = '100vh';
+                yesBtn.style.zIndex = '999';
+                yesBtn.style.fontSize = '5rem';
+                noBtn.style.display = 'none';
+                return;
+            }
+
+            yesBtn.style.transform = `scale(${yesBtnSize})`;
+        }
+
+        function sayYes() {
+            document.getElementById('question-text').classList.add('hidden');
+            document.getElementById('options').classList.add('hidden');
+            document.getElementById('yes-response').classList.remove('hidden');
+            
+            // Reset yes button if it was fullscreen
+            const yesBtn = document.getElementById('yes-btn');
+            yesBtn.style.position = 'static';
+            yesBtn.style.width = 'auto';
+            yesBtn.style.height = 'auto';
+            yesBtn.style.transform = 'scale(1)';
+        }
+    </script>
+</body>
+</html>
