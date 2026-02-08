@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Special Surprise Awaits😍</title>
     <style>
-        /* Love & Valentine Theme Background */
+        :root {
+            --primary: #ff4b6e;
+            --secondary: #d63384;
+            --bg-grad: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+        }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
@@ -13,94 +18,125 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            background: var(--bg-grad);
             text-align: center;
             overflow: hidden;
             color: #4a4a4a;
         }
 
-        /* Floating Hearts Decoration */
-        .bg-heart {
+        /* Rain/Drop Animation from Top */
+        .emoji-float {
             position: absolute;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 20px;
             user-select: none;
             z-index: 0;
-            animation: float 6s linear infinite;
+            top: -100px;
+            animation: fallDown 4s linear forwards;
         }
 
-        @keyframes float {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        @keyframes fallDown {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0.8; }
         }
 
         .container {
-            padding: 40px;
+            padding: 30px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            max-width: 450px;
-            width: 90%;
-            transition: all 0.4s ease;
+            max-width: 90vw; /* Responsive width */
+            width: fit-content;
+            transition: all 0.5s ease;
             position: relative;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .hidden { display: none !important; }
 
-        h1 { color: #d63384; margin-bottom: 20px; font-size: 2rem; }
-        p { font-size: 1.2rem; line-height: 1.6; color: #555; }
+        .avatar-container { font-size: 60px; margin-bottom: 5px; }
+
+        .section-img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .avatar-message {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            min-height: 24px;
+        }
+
+        h1 { color: var(--secondary); margin-bottom: 15px; font-size: 1.6rem; }
+
+        /* Button Container: Using Flex to prevent intersection */
+        #options {
+            display: flex;
+            flex-direction: row; /* Buttons side by side */
+            justify-content: center;
+            align-items: center;
+            gap: 30px; /* Space between buttons */
+            width: 100%;
+            padding: 20px;
+        }
 
         .btn {
-            background-color: #ff4b6e;
+            background-color: var(--primary);
             color: white;
             border: none;
             padding: 15px 35px;
             font-size: 1.1rem;
             border-radius: 50px;
             cursor: pointer;
-            margin: 10px;
             font-weight: bold;
-            transition: all 0.2s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             box-shadow: 0 4px 15px rgba(255, 75, 110, 0.3);
-            display: inline-block;
+            white-space: nowrap; /* Keep text on one line */
+            flex-shrink: 0; /* Prevents "Yes" from squishing "No" */
         }
 
-        .btn:hover { background-color: #e6395b; transform: scale(1.05); }
-
-        #no-btn { background-color: #adb5bd; }
+        #no-btn { 
+            background-color: #adb5bd; 
+            transition: transform 0.4s ease, opacity 0.3s ease;
+        }
 
         .couple-img {
             width: 100%;
-            max-width: 280px;
+            max-width: 300px;
             border-radius: 20px;
             margin-bottom: 20px;
             border: 5px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        #yes-btn {
-            position: relative;
-            z-index: 1000;
         }
     </style>
 </head>
 <body>
 
     <div id="page0" class="container">
+        <div class="avatar-container">👦🏻💐</div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp0g8wLGegovRwD56C_pJUtS4XuNTpHYgr-w&s" alt="Surprise" class="section-img">
         <h1>A Special Surprise Awaits😍</h1>
         <p>I have something very important to tell you...</p>
         <button class="btn" onclick="showPage(1)">Click to reveal ❤️</button>
     </div>
 
     <div id="page1" class="container hidden">
+        <div class="avatar-container">👦🏻💐</div>
+        <img src="https://www.wishesmsg.com/wp-content/uploads/Welcome-Home-Message-for-Husband.jpg" alt="Love" class="section-img">
         <h1>Welcome, My Love! 💖</h1>
-        <p>Every moment with you is a gift. I wanted to create something special to show you how much you mean to me.</p>
+        <p>Every moment with you is a gift. I wanted to create something special for you.</p>
         <button class="btn" onclick="showPage(2)">Next ➡️</button>
     </div>
 
     <div id="page2" class="container hidden">
         <div id="question-content">
+            <div id="boy-avatar" class="avatar-container">👦🏻💐</div>
+            <img id="question-img" src="https://i.fbcd.co/products/resized/resized-750-500/will-you-be-my-valentine-svg-cut-file-1625831834007067300-61e6251a5319d34a935ee87d6105e96d80648509cafc953c9fe28ddbfb7f0898.jpg" alt="Will you?" class="section-img">
+            <div id="boy-status" class="avatar-message">He's waiting for your answer...</div>
             <h1 id="question-text">Will you be my valentine? 🌹</h1>
             <div id="options">
                 <button id="yes-btn" class="btn" onclick="sayYes()">Yes</button>
@@ -109,6 +145,8 @@
         </div>
         
         <div id="yes-response" class="hidden">
+            <div class="avatar-container">🎉🎈</div>
+            <img src="https://i.pinimg.com/736x/18/99/5e/18995e81801092cd1636c6c18a430dd6.jpg" alt="Happy" class="section-img">
             <h2 style="color: #d63384;">Hooray! I knew it.</h2>
             <p>We'll both make a beautiful world together.</p>
             <button class="btn" onclick="showPage(3)">Next ➡️</button>
@@ -119,25 +157,28 @@
         <img src="https://assets.thehansindia.com/h-upload/2025/02/14/1523893-valentine.webp" alt="Our Love" class="couple-img">
         <h2>You'll be my valentine till my last breath.</h2>
         <p>Thank you for choosing me as your life partner.</p>
-        <p style="font-size: 1.5rem;">👩‍❤️‍👨 ❤️ 💍</p>
+        <p style="font-size: 2rem;">❤️ 💍 ✨</p>
     </div>
 
     <script>
-        // Create floating hearts
-        function createHearts() {
-            for (let i = 0; i < 20; i++) {
-                let heart = document.createElement('div');
-                heart.className = 'bg-heart';
-                heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                document.body.appendChild(heart);
-            }
-        }
-        createHearts();
-
         let clickCount = 0;
+
+        function spawnEmoji(emoji, isLarge = false) {
+            const e = document.createElement('div');
+            e.className = 'emoji-float';
+            e.innerHTML = emoji;
+            e.style.left = Math.random() * 100 + 'vw';
+            const baseSize = isLarge ? 60 : 35;
+            e.style.fontSize = (Math.random() * 30 + baseSize) + 'px';
+            e.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 4000);
+        }
+
+        // High quantity emoji rain
+        setInterval(() => {
+            spawnEmoji('😍');
+        }, 300);
 
         function showPage(pageNumber) {
             document.querySelectorAll('.container').forEach(p => p.classList.add('hidden'));
@@ -148,40 +189,62 @@
             clickCount++;
             const yesBtn = document.getElementById('yes-btn');
             const noBtn = document.getElementById('no-btn');
+            const boy = document.getElementById('boy-avatar');
+            const status = document.getElementById('boy-status');
+            const qImg = document.getElementById('question-img');
             
+            // Sad mode
+            boy.innerHTML = "😢👦💔";
+            status.innerHTML = "Please don't say no... 😭";
+            qImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZkNXo4NXFmNXJ6Z3BqcXNia2Z3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/9Y5BbDSkSTiY8/giphy.gif";
+            
+            // Drop lots of large sad emojis
+            for(let i=0; i < 10; i++) spawnEmoji('😭', true);
+
+            // Equal 5-step growth logic using Padding/Font for physical displacement
             if (clickCount === 1) {
+                yesBtn.style.padding = "30px 60px";
                 yesBtn.style.fontSize = "2rem";
-                yesBtn.style.padding = "20px 45px";
             } else if (clickCount === 2) {
-                yesBtn.style.fontSize = "4rem";
-                yesBtn.style.padding = "40px 80px";
+                yesBtn.style.padding = "50px 100px";
+                yesBtn.style.fontSize = "3.5rem";
             } else if (clickCount === 3) {
-                yesBtn.style.fontSize = "6rem";
-                yesBtn.style.padding = "60px 120px";
-            } else if (clickCount >= 4) {
+                yesBtn.style.padding = "70px 140px";
+                yesBtn.style.fontSize = "5rem";
+            } else if (clickCount === 4) {
+                yesBtn.style.padding = "100px 200px";
+                yesBtn.style.fontSize = "6.5rem";
+                noBtn.style.opacity = "0.7";
+            } else if (clickCount >= 5) {
+                // Final Takeover
                 yesBtn.style.position = 'fixed';
                 yesBtn.style.top = '0';
                 yesBtn.style.left = '0';
                 yesBtn.style.width = '100vw';
                 yesBtn.style.height = '100vh';
+                yesBtn.style.margin = '0';
+                yesBtn.style.borderRadius = '0';
                 yesBtn.style.zIndex = '9999';
-                yesBtn.style.fontSize = '5rem';
+                yesBtn.style.fontSize = '8rem';
                 yesBtn.style.display = 'flex';
                 yesBtn.style.justifyContent = 'center';
                 yesBtn.style.alignItems = 'center';
-                yesBtn.style.borderRadius = '0';
+                yesBtn.innerHTML = "YES! 💖";
                 noBtn.style.display = 'none';
             }
         }
 
         function sayYes() {
+            // Happy celebration rain
+            setInterval(() => spawnEmoji('💖', true), 200);
+            document.getElementById('question-content').classList.add('hidden');
+            document.getElementById('yes-response').classList.remove('hidden');
+            
             const yesBtn = document.getElementById('yes-btn');
             yesBtn.style.position = 'static';
             yesBtn.style.width = 'auto';
             yesBtn.style.height = 'auto';
-            
-            document.getElementById('question-content').classList.add('hidden');
-            document.getElementById('yes-response').classList.remove('hidden');
+            yesBtn.style.transform = 'scale(1)';
         }
     </script>
 </body>
