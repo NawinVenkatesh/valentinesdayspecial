@@ -22,46 +22,48 @@
         /* Floating Hearts Decoration */
         .bg-heart {
             position: absolute;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 20px;
             user-select: none;
-            z-index: -1;
+            z-index: 0;
             animation: float 6s linear infinite;
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
         }
 
         .container {
             padding: 40px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             max-width: 450px;
             width: 90%;
             transition: all 0.4s ease;
             position: relative;
+            z-index: 10;
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
-        h1 { color: #d63384; margin-bottom: 20px; }
-        p { font-size: 1.1rem; line-height: 1.6; }
+        h1 { color: #d63384; margin-bottom: 20px; font-size: 2rem; }
+        p { font-size: 1.2rem; line-height: 1.6; color: #555; }
 
         .btn {
             background-color: #ff4b6e;
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 35px;
             font-size: 1.1rem;
             border-radius: 50px;
             cursor: pointer;
             margin: 10px;
             font-weight: bold;
-            transition: transform 0.2s, background 0.3s;
+            transition: all 0.2s ease;
             box-shadow: 0 4px 15px rgba(255, 75, 110, 0.3);
+            display: inline-block;
         }
 
         .btn:hover { background-color: #e6395b; transform: scale(1.05); }
@@ -74,22 +76,16 @@
             border-radius: 20px;
             margin-bottom: 20px;
             border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #yes-btn {
+            position: relative;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
-
-    <script>
-        for (let i = 0; i < 15; i++) {
-            let heart = document.createElement('div');
-            heart.className = 'bg-heart';
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            document.body.appendChild(heart);
-        }
-    </script>
 
     <div id="page0" class="container">
         <h1>A Special Surprise Awaits😍</h1>
@@ -98,17 +94,20 @@
     </div>
 
     <div id="page1" class="container hidden">
-        <h1>Welcome, [Her Name]! 💖</h1>
-        <p>My dearest, every moment with you is a gift. I wanted to create something special to show you how much you mean to me.</p>
+        <h1>Welcome, My Love! 💖</h1>
+        <p>Every moment with you is a gift. I wanted to create something special to show you how much you mean to me.</p>
         <button class="btn" onclick="showPage(2)">Next ➡️</button>
     </div>
 
     <div id="page2" class="container hidden">
-        <h1 id="question-text">Will you be my valentine? 🌹</h1>
-        <div id="options">
-            <button id="yes-btn" class="btn" onclick="sayYes()">Yes</button>
-            <button id="no-btn" class="btn" onclick="handleNo()">No</button>
+        <div id="question-content">
+            <h1 id="question-text">Will you be my valentine? 🌹</h1>
+            <div id="options">
+                <button id="yes-btn" class="btn" onclick="sayYes()">Yes</button>
+                <button id="no-btn" class="btn" onclick="handleNo()">No</button>
+            </div>
         </div>
+        
         <div id="yes-response" class="hidden">
             <h2 style="color: #d63384;">Hooray! I knew it.</h2>
             <p>We'll both make a beautiful world together.</p>
@@ -117,13 +116,27 @@
     </div>
 
     <div id="page3" class="container hidden">
-        <img src="https://via.placeholder.com/300x300?text=Our+Photo" alt="Our Love" class="couple-img">
+        <img src="https://via.placeholder.com/300x300?text=Your+Photo+Here" alt="Our Love" class="couple-img">
         <h2>You'll be my valentine till my last breath.</h2>
-        <p>Thank you for choosing me as your life partner. <br> I love you infinitely!</p>
-        <p style="font-size: 1.5rem;">👩‍❤️‍👨</p>
+        <p>Thank you for choosing me as your life partner.</p>
+        <p style="font-size: 1.5rem;">👩‍❤️‍👨 ❤️ 💍</p>
     </div>
 
     <script>
+        // Create floating hearts
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement('div');
+                heart.className = 'bg-heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                document.body.appendChild(heart);
+            }
+        }
+        createHearts();
+
         let clickCount = 0;
 
         function showPage(pageNumber) {
@@ -137,36 +150,37 @@
             const noBtn = document.getElementById('no-btn');
             
             if (clickCount === 1) {
-                yesBtn.style.transform = 'scale(2)';
+                yesBtn.style.fontSize = "2rem";
+                yesBtn.style.padding = "20px 45px";
             } else if (clickCount === 2) {
-                yesBtn.style.transform = 'scale(4)';
+                yesBtn.style.fontSize = "4rem";
+                yesBtn.style.padding = "40px 80px";
             } else if (clickCount === 3) {
-                yesBtn.style.transform = 'scale(8)';
+                yesBtn.style.fontSize = "6rem";
+                yesBtn.style.padding = "60px 120px";
             } else if (clickCount >= 4) {
-                // Fullscreen takeover
                 yesBtn.style.position = 'fixed';
                 yesBtn.style.top = '0';
                 yesBtn.style.left = '0';
                 yesBtn.style.width = '100vw';
                 yesBtn.style.height = '100vh';
                 yesBtn.style.zIndex = '9999';
-                yesBtn.style.fontSize = '4rem';
+                yesBtn.style.fontSize = '5rem';
+                yesBtn.style.display = 'flex';
+                yesBtn.style.justifyContent = 'center';
+                yesBtn.style.alignItems = 'center';
                 yesBtn.style.borderRadius = '0';
                 noBtn.style.display = 'none';
-                return;
             }
         }
 
         function sayYes() {
-            // Revert fullscreen if needed
             const yesBtn = document.getElementById('yes-btn');
             yesBtn.style.position = 'static';
             yesBtn.style.width = 'auto';
             yesBtn.style.height = 'auto';
-            yesBtn.style.transform = 'scale(1)';
-
-            document.getElementById('question-text').classList.add('hidden');
-            document.getElementById('options').classList.add('hidden');
+            
+            document.getElementById('question-content').classList.add('hidden');
             document.getElementById('yes-response').classList.remove('hidden');
         }
     </script>
